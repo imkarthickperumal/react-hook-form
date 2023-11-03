@@ -160,30 +160,30 @@ const Demo = () => {
               onChange={handleDateChange}
             />
 
+            
             {/* Image section */}
             {image ? <img src={image} width="450" alt="User" /> : null}
 
-            {!watch("files") || watch("files").length === 0 ? (
-              <FormControl>
-                <FormLabel className="text-start text-black mb-3">
-                  Select Image
-                </FormLabel>
-                <input
-                  type="file"
-                  id="fileupload"
-                  accept=".jpg, .jpeg, .png, .gif"
-                  {...register("files")}
-                  onChange={handleImageChange}
-                ></input>
-                <label
-                  htmlFor="fileupload"
-                  style={{ cursor: "pointer" }}
-                ></label>
-              </FormControl>
-            ) : (
-              <strong>{watch("files")[0].name}</strong>
-            )}
-            {errors.files && (
+            <FormControl>
+              <FormLabel className="text-start text-black mb-3">
+                Select Image
+              </FormLabel>
+              <input
+                type="file"
+                id="fileupload"
+                accept=".jpg, .jpeg, .png, .gif"
+                {...register("files")}
+                onChange={handleImageChange}
+              ></input>
+              <label htmlFor="fileupload" style={{ cursor: "pointer" }}>
+                {imageSelected ? (
+                  <strong>{watch("files")[0]?.name || ""}</strong>
+                ) : (
+                  ""
+                )}
+              </label>
+            </FormControl>
+            {errors.files && !imageSelected && (
               <FormHelperText error={true}>
                 {errors.files.message}
               </FormHelperText>
